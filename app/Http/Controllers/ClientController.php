@@ -32,10 +32,9 @@ class ClientController extends Controller
     public function show()
     {
      
-        // $clients=Client::all();
+        $clients=Client::all();
         // echo $name,$balance;
-        // // dd($request);
-        //
-        return view('home')->with('mensaje','Vengo de Crear Cliente');
+        // dd($request);
+        return view('show_clients',compact('clients'));
     }
 }
