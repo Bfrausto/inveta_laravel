@@ -13,23 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//registrar cliente
 Route::get('/', function () {
     return view('login');
 });
-Route::post('/verification','App\Http\Controllers\UserController@search' );
-//registrar cliente
-Route::get('/registerclient', function () {
-    return view('register_client');
-});
-Route::post('/verifyclient','App\Http\Controllers\ClientController@store' );
+Route::post('/verification','UserController@search' );
+
 //mostrar clientes
-Route::get('/showclients', "App\Http\Controllers\ClientController@show");
+Route::get('/clients', 'ClientController@index');
+Route::post('/clients','ClientController@store' );
+Route::get('/clients/create','ClientController@create');
+Route::get('/clients/{client}', "ClientController@show")->name('clients.show');
+
+
 
 //registrar producto
-Route::get('/registerproduct', function () {
-    return view('register_product');
-});
-Route::post('/verifyproduct','App\Http\Controllers\ProductController@store' );
-
-//mostrar productos
-Route::get('/showproducts', "App\Http\Controllers\ProductController@show");
+Route::get('/products', 'ProductController@index');
+Route::post('/products','ProductController@store' );
+Route::get('/products/create','ProductController@create');
+Route::get('/products/{product}', "ProductController@show")->name('products.show');

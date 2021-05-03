@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://kit.fontawesome.com/3fd1b9fc4b.js" crossorigin="anonymous"></script>
-    
+
     <title>Mostrar clientes</title>
     <style>
         *{
@@ -15,7 +15,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@600&display=swap');
         body{
             font-family: 'Antonio', sans-serif;
-           
+
         }
         #cont-principal{
             display: flex;
@@ -62,7 +62,7 @@
             height:20px;
             background-color:gray;
             padding:20px 20px;
-            
+
         }
         .up p{
             color:white;
@@ -74,7 +74,7 @@
             height:150px;
             text-align:justify;
             flex-direction: column;
-            
+
         }
         .down p{
 
@@ -110,26 +110,26 @@
                 @foreach($clients as $client)
                 <div class="cont">
                     <div class="up">
-                        <p>{{$client->name}}</p>
+                        <a href="{{$client->path()}}"><p>{{$client->name}}</p></a>
                     </div>
                     <div class="down">
                         <div class="text">
                             @if ($client->enterprise)
                                 <p>Empresa: {{$client->enterprise}}</p>
-                            @endif 
+                            @endif
                             @if ($client->adress)
                                 <p>Direccion: {{$client->adress}}</p>
-                            @endif 
-                            @if ($client->email)       
+                            @endif
+                            @if ($client->email)
                                 <p>Email: {{$client->email}}</p>
                             @endif
-                            @if ($client->tel)       
+                            @if ($client->tel)
                                 <p>Teléfono: {{$client->tel}}</p>
                             @endif
-                            @if ($client->rfc)       
+                            @if ($client->rfc)
                                 <p>RFC: {{$client->rfc}}</p>
                             @endif
-                            @if ($client->balance)       
+                            @if ($client->balance)
                                 <p>Saldo: $@money($client->balance)</p>
                             @endif
                         </div>

@@ -7,6 +7,19 @@ use App\models\Product;
 use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
+    public function index()
+    {
+        $products= Product::all();
+        return view('products.index',compact('products'));
+    }
+    public function show(Product $product)
+    {
+        return view('products.show',compact('product'));
+    }
+    public function create()
+    {
+        return view('products.create');
+    }
     public function store(Request $request)
     {
         // $name = $request->name;
@@ -27,23 +40,14 @@ class ProductController extends Controller
 
         }
         $product=new Product;
-        
+
         $product->name=$request->name;
         $product->inv_store=$request->inv_store;
         $product->inv_house=$request->inv_house;
         $product->description=$request->description;
         $product->img=$url;
         $product->save();
-        // dd($request->all());
-        
-            return $this->show();
-    }
-    public function show()
-    {
-     
-        $products=Product::all();
-        // echo $name,$balance;
-        // dd($request);
-        return view('show_products',compact('products'));
+
+        return redirect('/products');
     }
 }

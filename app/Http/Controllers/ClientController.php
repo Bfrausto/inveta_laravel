@@ -6,35 +6,32 @@ use Illuminate\Http\Request;
 use App\models\Client;
 class ClientController extends Controller
 {
-    public function store(Request $request)
+    public function index()
     {
-        // $name = $request->name;
-        // $balance = $request->balance;
+        $clients= Client::all();
+        return view('clients.index',compact('clients'));
+    }
+    public function show(Client $client)
+    {
+        return view('clients.show',compact('client'));
+    }
+    public function create()
+    {
+        return view('clients.create');
+    }
+    public function store()
+    {
+        Client::create($this->validateArticle());
 
-        $request->validate([
-            'balance'=>'numeric|min:0',
-            'tel'=>'numeric|min:0',
-        ]);
-        $client=new Client;
-        
-        $client->name=$request->name;
-        $client->balance=$request->balance;
-        $client->enterprise=$request->enterprise;
-        $client->adress=$request->adress;
-        $client->email=$request->email;
-        $client->tel=$request->tel;
-        $client->rfc=$request->rfc;
-        $client->save();
-        
-        // dd($request->all());
-        return $this->show();
+        return redirect('/clients');
     }
-    public function show()
+    public function validateArticle()
     {
-     
-        $clients=Client::all();
-        // echo $name,$balance;
-        // dd($request);
-        return view('show_clients',compact('clients'));
+        return request()->validate([
+            'balance'=>['required','numeric','min:0'],
+            'tel'=>'numeric|min:0',
+            'name'=>'require'
+        ]);;
     }
+
 }
