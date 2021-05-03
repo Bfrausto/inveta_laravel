@@ -46,7 +46,6 @@
             margin-bottom: 20px;
         }
         .container input[type=text]{
-            border: none;
             border-radius: 10px  ;
             padding: 10px;
             height:100%;
@@ -87,7 +86,7 @@
     </style>
 
     @yield('head')
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 </head>
 <body>
     @yield('content')

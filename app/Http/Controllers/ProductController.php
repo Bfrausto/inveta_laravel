@@ -28,7 +28,9 @@ class ProductController extends Controller
         $request->validate([
             'inv_store'=>'numeric|min:0',
             'inv_house'=>'numeric|min:0',
-            'img'=>'image'
+            'img'=>['image','required'],
+            'name'=>'required',
+            'description'=>'required'
         ]);
         if($request->hasFile('img')){
 
@@ -39,14 +41,21 @@ class ProductController extends Controller
             $url=Storage::url($path);
 
         }
-        $product=new Product;
+        Product::create([
+            'name'=>$request->name,
+            'inv_store'=>$request->inv_store,
+            'inv_house'=>$request->inv_house,
+            'description'=>$request->description,
+            'img'=>$url
+        ]);
+        // $product=new Product;
 
-        $product->name=$request->name;
-        $product->inv_store=$request->inv_store;
-        $product->inv_house=$request->inv_house;
-        $product->description=$request->description;
-        $product->img=$url;
-        $product->save();
+        // $product->name=$request->name;
+        // $product->inv_store=$request->inv_store;
+        // $product->inv_house=$request->inv_house;
+        // $product->description=$request->description;
+        // $product->img=$url;
+        // $product->save();
 
         return redirect('/products');
     }

@@ -21,6 +21,7 @@ class ClientController extends Controller
     }
     public function store()
     {
+
         Client::create($this->validateArticle());
 
         return redirect('/clients');
@@ -29,9 +30,10 @@ class ClientController extends Controller
     {
         return request()->validate([
             'balance'=>['required','numeric','min:0'],
-            'tel'=>'numeric|min:0',
-            'name'=>'require'
-        ]);;
+            'tel'=>['numeric','nullable'],
+            'name'=>'required',
+            'email'=>['email','nullable'],
+        ]);
     }
 
 }

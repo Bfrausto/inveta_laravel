@@ -39,7 +39,7 @@
                 @foreach($products as $product)
                 <tr>
                 <th scope="row">{{$product->id}}</th>
-                <td>{{$product->name}}</td>
+                <td><a href="{{$product->path()}}">{{$product->name}}</a></td>
                 <td>{{$product->description}}</td>
                 <td>{{$product->inv_store}} kg </td>
                 <td>{{$product->inv_house}} kg</td>
