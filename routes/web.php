@@ -14,21 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 //registrar cliente
-Route::get('/', function () {
-    return view('login');
-});
-Route::post('/verification','UserController@search' );
+
+Route::middleware('auth' )->group(function () {
+    Route::post('/verification','UserController@search' );
 
 //mostrar clientes
-Route::get('/clients', 'ClientController@index');
+Route::get('/clients', 'ClientController@index')->name('clients');
 Route::post('/clients','ClientController@store' );
-Route::get('/clients/create','ClientController@create');
+Route::get('/clients/create','ClientController@create')->name('clients.create');
 Route::get('/clients/{client}', "ClientController@show")->name('clients.show');
 
 
 
 //registrar producto
-Route::get('/products', 'ProductController@index');
+Route::get('/products', 'ProductController@index')->name('products');
 Route::post('/products','ProductController@store' );
-Route::get('/products/create','ProductController@create');
+Route::get('/products/create','ProductController@create')->name('products.create');
 Route::get('/products/{product}', "ProductController@show")->name('products.show');
+Route::get('/',function(){
+    return view('home');
+})->name('home');
+});
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,3 +1,4 @@
+@include('layouts/tohome')
 <a href="{{url("clients")}}"><h1>Return to ARTICLES</h1></a>
 <div class="cont">
     <div class="up">

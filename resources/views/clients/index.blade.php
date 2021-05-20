@@ -103,6 +103,7 @@
     </style>
 </head>
 <body>
+    @include('layouts/tohome')
     <div id= "cont-principal">
         <div id= "cont-2">
             <p id ="blog">Clientes</p>

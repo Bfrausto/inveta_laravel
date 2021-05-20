@@ -20,4 +20,9 @@ class Product extends Model
         return route('products.show',$this);
 
     }
+    public function getImgAttribute($value)
+    {
+        if($value)
+            return asset('storage/' .$value);
+    }
 }

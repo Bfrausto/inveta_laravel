@@ -25,29 +25,18 @@ class ProductController extends Controller
         // $name = $request->name;
         // $inv_store = $request->inv_store;
 
-        $request->validate([
+        $attributes=$request->validate([
             'inv_store'=>'numeric|min:0',
             'inv_house'=>'numeric|min:0',
-            'img'=>['image','required'],
+            'img' => 'image',
             'name'=>'required',
             'description'=>'required'
         ]);
-        if($request->hasFile('img')){
+        if($request->img){
 
-            $destination_path='public\media\imgproducts';
-            $image=$request->file('img');
-            $image_name=$image->getClientOriginalName();
-            $path = $request->file('img')->store($destination_path);
-            $url=Storage::url($path);
-
+            $attributes['img'] =request('img')->store('imgproducts');
         }
-        Product::create([
-            'name'=>$request->name,
-            'inv_store'=>$request->inv_store,
-            'inv_house'=>$request->inv_house,
-            'description'=>$request->description,
-            'img'=>$url
-        ]);
+        Product::create($attributes);
         // $product=new Product;
 
         // $product->name=$request->name;

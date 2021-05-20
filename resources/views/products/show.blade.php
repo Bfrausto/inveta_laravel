@@ -1,4 +1,4 @@
-<div id="contenedor-principal">
+<div id="contenedor-principal " style="margin-left: 200px;">
     <h1 style="padding-top: 10px;padding-bottom: 10px">Inventario</h1>
     <table class="table">
         <thead class="thead-light">
@@ -8,6 +8,7 @@
             <th scope="col">Descripcion</th>
             <th scope="col">Bodega</th>
             <th scope="col">Almacén</th>
+
             </tr>
         </thead>
         <tbody>
@@ -17,7 +18,11 @@
             <td>{{$product->description}}</td>
             <td>{{$product->inv_store}} kg </td>
             <td>{{$product->inv_house}} kg</td>
+            <td><img src="{{$product->img}}" alt="" style="height: 200px"> </td>
             </tr>
         </tbody>
+
     </table>
+
+
 </div>

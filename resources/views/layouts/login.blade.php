@@ -99,8 +99,8 @@
             border: 16px solid #f3f3f3;
             border-radius: 50%;
             border-top: 16px solid rgb(9, 50, 94);
-            -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+            -webkit-animation: spin 0.4s linear infinite;
+            animation: spin 0.4s linear infinite;
             }
 
             @-webkit-keyframes spin {
@@ -123,7 +123,7 @@
         var myVar;
 
         function myFunction() {
-          myVar = setTimeout(showPage, 250);
+          myVar = setTimeout(showPage, 1);
         }
 
         function showPage() {

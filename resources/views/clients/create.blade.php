@@ -3,9 +3,12 @@
     <title>Registro de Cliente</title>
 @endsection
 @section('head')
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 @endsection
 @section('content')
+
+    
     <div id="contenedor-principal">
         <form action="/clients" method="post">
             @csrf
@@ -84,12 +87,10 @@
                             <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El saldo tiene un formato incorrecto (solo números).</p>
                         @enderror
                     </div>
-
                     <p style="font-size:13px;padding-bottom:10px">*Datos obligatorios </p>
                 </div>
                 <button type="submit">Registrar</button>
             </div>
-
         </form>
     </div>
 @endsection
