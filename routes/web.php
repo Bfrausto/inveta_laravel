@@ -24,6 +24,11 @@ Route::post('/clients','ClientController@store' );
 Route::get('/clients/create','ClientController@create')->name('clients.create');
 Route::get('/clients/{client}', "ClientController@show")->name('clients.show');
 
+Route::get('/clients/{client}/edit','ClientController@edit');
+Route::patch('/clients/{client}/edit','ClientController@update' );
+
+Route::get('/clients/{client}/saldo','ClientController@editBalance');
+Route::patch('/clients/{client}/saldo','ClientController@updateBalance' );
 
 
 //registrar producto
@@ -31,6 +36,18 @@ Route::get('/products', 'ProductController@index')->name('products');
 Route::post('/products','ProductController@store' );
 Route::get('/products/create','ProductController@create')->name('products.create');
 Route::get('/products/{product}', "ProductController@show")->name('products.show');
+
+
+Route::get('/products/{product}/edit','ProductController@edit');
+Route::patch('/products/{product}/edit','ProductController@update' );
+
+Route::get('/products/{product}/inventario','ProductController@editBalance');
+Route::patch('/products/{product}/inventario','ProductController@updateBalance' );
+
+
+Route::get('/home',function(){
+    return view('home');
+});
 Route::get('/',function(){
     return view('home');
 })->name('home');

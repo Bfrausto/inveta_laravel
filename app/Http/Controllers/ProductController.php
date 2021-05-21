@@ -25,13 +25,7 @@ class ProductController extends Controller
         // $name = $request->name;
         // $inv_store = $request->inv_store;
 
-        $attributes=$request->validate([
-            'inv_store'=>'numeric|min:0',
-            'inv_house'=>'numeric|min:0',
-            'img' => 'image',
-            'name'=>'required',
-            'description'=>'required'
-        ]);
+        $attributes=$this->validateArticle();
         if($request->img){
 
             $attributes['img'] =request('img')->store('imgproducts');
@@ -47,5 +41,47 @@ class ProductController extends Controller
         // $product->save();
 
         return redirect('/products');
+    }
+    public function validateArticle()
+    {
+        return request()->validate([
+            'inv_store'=>'numeric|min:0',
+            'inv_house'=>'numeric|min:0',
+            'img' => 'image',
+            'name'=>'required',
+            'description'=>'required'
+        ]);
+    }
+    public function edit(Product $product)
+    {
+        return view('products.edit',compact('product'));
+
+    }
+
+    public function update(Product $product)
+    {
+
+        $attributes=$this->validateArticle();
+        if(request()->img){
+
+            $attributes['img'] =request('img')->store('imgproducts');
+        }
+        $product->update($attributes);
+        return redirect($product->path());
+    }
+
+    public function editBalance(Product $product)
+    {
+        return view('products.balance',compact('product'));
+
+    }
+
+    public function updateBalance(Product $product)
+    {
+        $product->update(request()->validate([
+            'inv_store'=>'numeric|min:0',
+            'inv_house'=>'numeric|min:0',
+        ]));
+        return redirect($product->path());
     }
 }

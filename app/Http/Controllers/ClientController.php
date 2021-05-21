@@ -33,7 +33,35 @@ class ClientController extends Controller
             'tel'=>['numeric','nullable'],
             'name'=>'required',
             'email'=>['email','nullable'],
+            'enterprise'=>'',
+            'adress'=>'',
+            'rfc'=>'',
         ]);
+    }
+    public function edit(Client $client)
+    {
+        return view('clients.edit',compact('client'));
+
+    }
+
+    public function update(Client $client)
+    {
+        $client->update($this->validateArticle());
+        return redirect($client->path());
+    }
+
+    public function editBalance(Client $client)
+    {
+        return view('clients.balance',compact('client'));
+
+    }
+
+    public function updateBalance(Client $client)
+    {
+        $client->update(request()->validate([
+            'balance'=>['required','numeric','min:0']
+        ]));
+        return redirect($client->path());
     }
 
 }
