@@ -81,10 +81,11 @@
         <div id ="navtext">
             <img src="{{asset('media/logo.png')}}" style="height: 50px;">
             <div class="nav"><a href="{{route('clients')}}">Clientes</a></div>
-            <div class="nav"><a href="{{route('clients.create')}}">Crear Clientes</a></div>
+            <div class="nav"><a href="{{route('clients.create')}}">Crear Cliente</a></div>
             <div class="nav"><a href="{{route('products')}}">Productos</a></div>
-            <div class="nav"><a href="{{route('products.create')}}">Crear Productos</a></div>
-
+            <div class="nav"><a href="{{route('products.create')}}">Crear Producto</a></div>
+            <div class="nav"><a href="{{route('sales')}}">Ventas</a></div>
+            <div class="nav"><a href="{{route('sales.create')}}">Crear Venta</a></div>
             <!-- <div class="nav"><a href="#home">Experience</a></div> -->
         </div>
         <div class="nav" style="margin-right: 20px "><a class="" href="{{ route('logout') }}"

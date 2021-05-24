@@ -31,7 +31,7 @@ class ClientController extends Controller
         return request()->validate([
             'balance'=>['required','numeric','min:0'],
             'tel'=>['numeric','nullable'],
-            'name'=>'required',
+            'name'=>['required','unique:clients'],
             'email'=>['email','nullable'],
             'enterprise'=>'',
             'adress'=>'',

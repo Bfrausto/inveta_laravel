@@ -44,6 +44,11 @@ Route::patch('/products/{product}/edit','ProductController@update' );
 Route::get('/products/{product}/inventario','ProductController@editBalance');
 Route::patch('/products/{product}/inventario','ProductController@updateBalance' );
 
+//registrar producto
+Route::get('/sales', 'SaleController@index')->name('sales');
+Route::post('/sales','SaleController@store' );
+Route::get('/sales/create','SaleController@create')->name('sales.create');
+Route::get('/sales/{product}', "SaleController@show")->name('sales.show');
 
 Route::get('/home',function(){
     return view('home');

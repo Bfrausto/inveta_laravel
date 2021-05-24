@@ -27,7 +27,6 @@
         <div  style="margin-top:10px">
             <a style="margin-right: 40px;" href="{{$client->path()}}/edit" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Editar Cliente</a>
             <a href="{{$client->path()}}/saldo" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Modificar Saldo</a>
-
         </div>
     </div>
 </div>

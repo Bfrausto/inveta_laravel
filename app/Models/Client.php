@@ -23,4 +23,9 @@ class Client extends Model
         return route('clients.show',$this);
 
     }
+    public function sales()
+    {
+        return $this->hasMany(Sales::class)
+                ->latest();
+    }
 }
