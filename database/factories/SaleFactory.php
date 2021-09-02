@@ -23,8 +23,11 @@ class SaleFactory extends Factory
      */
     public function definition()
     {
+        // factory()
+        // find(1)
+
         return [
-            'client_id' =>Client::find(1),
+            'client_id' =>Client::factory(),
             'client_name' =>function (array $attributes) {
                 return Client::find($attributes['client_id'])->name;
             },
@@ -44,7 +47,7 @@ class SaleFactory extends Factory
                 $client=Client::find($attributes['client_id']);
                 $client->balance+=$attributes[ 'transaction'];
                 $client->save();
-                return Client::find($attributes['client_id'])->balance;
+                return $client->balance;
             },
         ];
     }

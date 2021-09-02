@@ -30,10 +30,27 @@ class SaleController extends Controller
         ];
         return view('sales.create',compact('data'));
     }
+
     public function store(Request $request)
     {
+        Sale::create($this->validateTicket());
 
+        return redirect('/sales');
+    }
+    public function edit(Sale $sale)
+    {
+        $products= Product::all();
 
+        $clients= Client::all();
+        $data=[
+            'clients'=>$clients,
+            'products'=>$products
+        ];
+        // dd($sale);
+        return view('sales.edit',compact('sale','data'));
+    }
+    public function update(Request $request)
+    {
         Sale::create($this->validateTicket());
 
         return redirect('/sales');

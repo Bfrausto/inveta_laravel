@@ -24,7 +24,6 @@
                             <div class="col borde2">
                                 <div class="dropdown show">
                                     <select name="client_id" class="custom-select " id="inputGroupSelect01" style="@error('client_id')border:0.5px solid red; @enderror">
-                                        <a href="">{{old('client_id') }}</a>
                                         <option selected
                                             @if (old('client_id') and old('client_id')!='Selecciona un cliente')
                                                 value="{{old('client_id')}}">

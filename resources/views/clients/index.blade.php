@@ -21,7 +21,7 @@
             display: flex;
             flex-direction: column;
             text-align: left;
-            margin: 10px 200px;
+            margin: 30px 200px;
             background-color: whitesmoke;
             border-radius: 10px  ;
             box-shadow: 5px 5px 5px #aaaaaa;
@@ -103,7 +103,9 @@
     </style>
 </head>
 <body>
-    @include('layouts/tohome')
+@include('layouts/navbar')
+
+    {{-- @include('layouts/tohome') --}}
     <div id= "cont-principal">
         <div id= "cont-2">
             <p id ="blog">Clientes</p>

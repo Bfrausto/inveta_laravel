@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Client;
+use App\Models\Client;
 class ClientController extends Controller
 {
     public function index()
@@ -31,7 +31,7 @@ class ClientController extends Controller
         return request()->validate([
             'balance'=>['required','numeric','min:0'],
             'tel'=>['numeric','nullable'],
-            'name'=>['required','unique:clients'],
+            'name'=>['required'],
             'email'=>['email','nullable'],
             'enterprise'=>'',
             'adress'=>'',

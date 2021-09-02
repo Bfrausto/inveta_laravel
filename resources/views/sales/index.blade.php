@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventario </title>
   <link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.css')}}">
+  <script src="https://kit.fontawesome.com/3fd1b9fc4b.js" crossorigin="anonymous"></script>
+
   <style>
     * {
         margin: 0px;
@@ -14,7 +16,7 @@
     }
 
     #contenedor-principal{
-        margin: 30px 200px 0px;
+        margin: 30px 35px 0px;
         padding: 0px 100px 30px;
         border-radius: 10px  ;
         box-shadow: 5px 5px 5px #aaaaaa;
@@ -23,7 +25,7 @@
 </style>
 </head>
 <body>
-    @include('layouts/tohome')
+    @include('layouts/navbar')
   <div id="contenedor-principal">
         <h1 style="padding-top: 10px;padding-bottom: 10px">Inventario</h1>
         <table class="table">
@@ -38,7 +40,7 @@
                 <th scope="col">Precio</th>
                 <th scope="col">Transacción</th>
                 <th scope="col">Saldo</th>
-
+                <th scope="col">Editar</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +55,7 @@
                 <td>${{$sale->price}}</td>
                 <td>${{$sale->transaction}} </td>
                 <td>${{$sale->balance}}</td>
+                <td> <a href="{{route('sales.edit',$sale->id)}}"><i class="fas fa-edit"></i></a> <a href=""><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -60,3 +63,4 @@
   </div>
 </body>
 </html>
+
