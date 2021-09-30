@@ -14,7 +14,7 @@
     }
 
     #contenedor-principal{
-        margin: 30px 200px 0px;
+        margin: 60px 35px 0px;
         padding: 0px 100px 30px;
         border-radius: 10px  ;
         box-shadow: 5px 5px 5px #aaaaaa;
@@ -23,10 +23,10 @@
 </style>
 </head>
 <body>
-    @include('layouts/tohome')
+    @include('layouts/navbar')
   <div id="contenedor-principal">
         <h1 style="padding-top: 10px;padding-bottom: 10px">Inventario</h1>
-        <table class="table">
+        <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
                 <th scope="col">#</th>
@@ -39,7 +39,7 @@
             <tbody>
                 @foreach($products as $product)
                 <tr>
-                <th scope="row">{{$product->id}}</th>
+                <th scope="row">{{$product->id}} </th>
                 <td><a href="{{$product->path()}}">{{$product->name}}</a></td>
                 <td>{{$product->description}}</td>
                 <td>{{$product->inv_store}} kg </td>

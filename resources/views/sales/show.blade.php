@@ -1,7 +1,7 @@
 @include('layouts/tohome')
 <div id="contenedor-principal " style="margin-left: 200px;">
     <h1 style="padding-top: 10px;padding-bottom: 10px">Inventario</h1>
-    <table class="table">
+    <table class="table table-hover">
         <thead class="thead-light">
             <tr>
             <th scope="col">#</th>

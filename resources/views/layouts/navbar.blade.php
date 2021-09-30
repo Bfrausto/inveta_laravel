@@ -72,6 +72,7 @@
             text-decoration: none;
             color:rgb(65,65,66);
         }
+
     </style>
 </head>
 <body>
@@ -90,7 +91,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{route('clients.create')}}">Nuevo</a>
+                    <a href="#modalClient" class="dropdown-item" data-toggle="modal" data-target="#modalClient">Nuevo</a>
                     <a class="dropdown-item" href="{{route('clients')}}">Gestionar</a>
                 </div>
             </div>
@@ -100,7 +101,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{route('products.create')}}">Nuevo</a>
+                    <a href="#modalClient" class="dropdown-item" data-toggle="modal" data-target="#modalProduct">Nuevo</a>
                     <a class="dropdown-item" href="{{route('products')}}">Gestionar</a>
                 </div>
             </div>
@@ -110,7 +111,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{route('sales.create')}}">Crear venta</a>
+                    <a href="#modalSale" class="dropdown-item" data-toggle="modal" data-target="#modalSale">Crear venta</a>
                     <a class="dropdown-item" href="{{route('sales')}}">Gestionar</a>
                 </div>
             </div>
@@ -119,7 +120,7 @@
         <div class="nav" style="margin-right: 20px "><a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}
+            {{ __('Cerrar cesión') }}
 
         </a></div>
     </div>
@@ -128,3 +129,7 @@
     </form>
 </body>
 </html>
+@include('clients.modal-create')
+@include('products.modal-create')
+@include('sales.modal-create')
+

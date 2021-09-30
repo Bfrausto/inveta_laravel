@@ -24,16 +24,20 @@ Route::post('/clients','ClientController@store' );
 Route::get('/clients/create','ClientController@create')->name('clients.create');
 Route::get('/clients/{client}', "ClientController@show")->name('clients.show');
 
-Route::get('/clients/{client}/edit','ClientController@edit');
+Route::get('/clients/{client}/edit','ClientController@edit')->name('clients.edit');
 Route::patch('/clients/{client}/edit','ClientController@update' );
+Route::patch('/clients/{client}/edit/{modal}','ClientController@updateModal' );
+
 
 Route::get('/clients/{client}/saldo','ClientController@editBalance');
 Route::patch('/clients/{client}/saldo','ClientController@updateBalance' );
+Route::post('/clients/{client}/delete','ClientController@delete');
+
 
 
 //registrar producto
 Route::get('/products', 'ProductController@index')->name('products');
-Route::post('/products','ProductController@store' );
+Route::post('/products','ProductController@storeModal' );
 Route::get('/products/create','ProductController@create')->name('products.create');
 Route::get('/products/{product}', "ProductController@show")->name('products.show');
 
@@ -52,12 +56,9 @@ Route::get('/sales/{sale}', "SaleController@show")->name('sales.show');
 
 Route::get('/sales/{sale}/edit','SaleController@edit')->name('sales.edit');
 Route::patch('/sales/{sale}/edit','SaleController@update' );
-Route::get('/home',function(){
-    return view('home');
-});
-Route::get('/',function(){
-    return view('home');
-})->name('home');
+Route::post('/sales/{sale}/delete','SaleController@delete');
+Route::get('/home','SaleController@index');
+Route::get('/','SaleController@index')->name('home');
 });
 Auth::routes();
 

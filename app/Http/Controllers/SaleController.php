@@ -7,17 +7,74 @@ use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class SaleController extends Controller
 {
+    protected $dataSales;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+
+                $products= Product::all();
+
+                $clients= Client::all();
+                $this->dataSales =[
+                    'clients'=>$clients,
+                    'products'=>$products
+                ];
+                Session::put('data', $this->dataSales);
+
+            return $next($request);
+        });
+    }
     public function index()
     {
         $sales= Sale::all();
-        return view('sales.index',compact('sales'));
+
+        return view('sales.index',array('sales'=>$sales,'dataSales' => $this->dataSales));
     }
     public function show(Sale $sale)
     {
-        return view('sales.show',compact('sale'));
+        return view('sales.show',array('sale'=>$sale,'dataSales' => $this->dataSales));
+    }
+    public function storeModal()
+    {
+        $validator=$this->validateData();
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->with('modal','modalClient');
+        }
+
+        $client=Client::create($validator->validated());
+        return redirect($client->path());
+        return redirect('/clients');
+    }
+
+
+    public function validateData()
+    {
+        return Validator::make(request()->toArray(), [
+            'balance'=>['required','numeric','min:0'],
+            'tel'=>['numeric','nullable'],
+            'name'=>['required'],
+            'email'=>['email','nullable'],
+            'enterprise'=>'',
+            'adress'=>'',
+            'rfc'=>'',
+        ]);
+    }
+    public function updateModal(Client $client,$modal)
+    {
+        $validator=$this->validateData();
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->with('modal',$modal);
+        }
+
+        $client->update($validator->validated());
+        return redirect($client->path());
     }
     public function create()
     {
@@ -49,9 +106,9 @@ class SaleController extends Controller
         // dd($sale);
         return view('sales.edit',compact('sale','data'));
     }
-    public function update(Request $request)
+    public function update(Sale $sale)
     {
-        Sale::create($this->validateTicket());
+        $sale->update($this->validateTicket());
 
         return redirect('/sales');
     }
@@ -89,10 +146,16 @@ class SaleController extends Controller
             $data['inv_store']=0;
             $product->inv_house-=request()->kg;
         }
-        $product->save();
+        // $product->save();
         unset($data['kg']);
         unset($data['inv']);
 
         return $data;
+    }
+    public function delete(Sale $sale)
+    {
+        $sale->delete();
+
+        return redirect('/sales');
     }
 }

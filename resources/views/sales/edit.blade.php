@@ -8,8 +8,9 @@
 @endsection
 @section('content')
     <div id="contenedor-principal">
-        <form action="/sales" method="post">
+        <form action="/sales/{{$sale->id}}/edit" method="post">
             @csrf
+            @method('PATCH')
             <div id="contenedor-texto">
                 <div id="fecha">
                     <p id="fecha-sol">Registro de Venta<br></p>
