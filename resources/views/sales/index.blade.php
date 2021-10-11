@@ -1,29 +1,7 @@
-<!DOCTYPE html>
-<head>
-  <title>Inventario </title>
-  <link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.css')}}">
-  <script src="https://kit.fontawesome.com/3fd1b9fc4b.js" crossorigin="anonymous"></script>
-
-  <style>
-    * {
-        margin: 0px;
-        padding: 0px;
-
-    }
-
-    #contenedor-principal{
-        margin: 60px 35px 0px;
-        padding: 0px 100px 30px;
-        border-radius: 10px  ;
-        box-shadow: 5px 5px 5px #aaaaaa;
-        background-color: whitesmoke;
-    }
-</style>
-</head>
-<body>
-    @include('layouts/navbar')
+@extends('layouts/navbar')
+@section('title', 'Ventas')
+@section('content')
   <div id="contenedor-principal">
-        <h1 style="padding-top: 10px;padding-bottom: 10px">Ventas</h1>
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -61,7 +39,5 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-</body>
-
+        @stop
 

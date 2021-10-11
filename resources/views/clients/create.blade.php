@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 @endsection
 @section('content')
-
-    
     <div id="contenedor-principal">
         <form action="/clients" method="post">
             @csrf
@@ -76,7 +74,7 @@
                         </div>
                         <div class="row ">
                             <div class="col-2 borde salto">
-                                <p>Saldo Inicial:*</p>
+                                <p>Crédito:*</p>
                             </div>
                             <div class="col  min">
                                 <input class="input @error('balance') is-danger @enderror" type="text" name="balance"

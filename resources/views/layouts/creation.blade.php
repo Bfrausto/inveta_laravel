@@ -11,7 +11,6 @@
             margin: 0px;
             padding: 0px;
         }
-
         #contenedor-principal{
             margin: 30px 300px 0px;
             padding: 0px 100px;
@@ -70,7 +69,6 @@
             border: 3px rgb(192, 191, 191);
             border-radius: 10px  ;
             font-size:25px;
-
             box-shadow: 5px 5px 5px #aaaaaa;
         }
         button:hover{
@@ -82,14 +80,12 @@
         .min input[type=text]{
             width: 250px;
         }
-
     </style>
-
     @yield('head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 </head>
 <body>
-    @include('layouts/tohome')
+    @include('layouts/navbar')
     @yield('content')
 </body>
 </html>

@@ -59,6 +59,16 @@ Route::patch('/sales/{sale}/edit','SaleController@update' );
 Route::post('/sales/{sale}/delete','SaleController@delete');
 Route::get('/home','SaleController@index');
 Route::get('/','SaleController@index')->name('home');
+
+
+
+Route::post('/salesTest','SaleControllerTest@store' );
+Route::get('/salesTest/create','SaleControllerTest@create')->name('sales.create');
+
+Route::get('/salesTest/{sale}', "SaleControllerTest@show")->name('sales.show');
+Route::get('/salesTest/{sale}/edit','SaleControllerTest@edit')->name('sales.edit');
+Route::patch('/salesTest/{sale}/edit','SaleControllerTest@update' );
+Route::post('/salesTest/{sale}/delete','SaleControllerTest@delete');
 });
 Auth::routes();
 

@@ -1,90 +1,3 @@
-<style>
-    #modal-contenedor-principal{
-        margin:0 auto;
-        color: #495057;
-        font-weight: bold;
-    }
-    #modal-contenedor-texto{
-        width: 630px;
-        font-size:17px;
-        font-family:Arial, Helvetica, sans-serif;
-        display: flex;
-        background-color:white;
-        justify-content: space-between;
-        flex-direction: column;
-        padding: 0px 30px 30px;
-        box-shadow: 5px 5px 5px #aaaaaa;
-        border-radius: 10px  ;
-    }
-    #fecha{
-        margin-top:10px;
-        height:100%;
-        width:100%;
-    }
-    #fecha-sol{
-        padding:15px;
-        border-radius: 10px  ;
-        background-color:#e9ecef;
-        margin-bottom:30px;
-        font-weight: 700;
-        text-align: center;
-        font-size: 34px;
-    }
-    .modal-container{
-        margin-bottom: 20px;
-    }
-    .modal-container input[type=text]{
-        border-radius: 10px  ;
-        padding: 10px;
-        height:100%;
-        width:100%;
-    }
-    .modal-container input[type=text]:focus-visible{
-        border-radius: 10px !important;
-    }
-    .modal-container input[type=text]:focus{
-        border-color: #3273dc;
-        border-radius: 10px !important;
-
-        box-shadow: 0 0 0 0.125em rgb(50 115 220 / 25%);
-    }
-    .modal-container p{
-        padding-top: 10px;
-        height:30px;
-        text-align:center;
-    }
-    .salto p{
-        padding:0px;
-    }
-    .borde{
-        border-radius: 10px  ;
-        background-color: #e9ecef ;
-    }
-    .borde2{
-        border-radius: 10px  ;
-        border-style: none !important ;
-    }
-    .modal-button{
-        border: 3px #e9ecef;
-        border-radius: 10px  !important;
-        font-size:25px !important;
-        background-color: #E9ECEE;
-        box-shadow: 5px 5px 5px #aaaaaa;
-    }
-    button:hover{
-        background-color:#b4c3ce;
-        color: white;
-    }
-    .row{
-        margin-bottom:10px;
-    }
-    .min input[type=text]{
-        width: 250px;
-    }
-    .is-danger{
-        color:red;
-    }
-    </style>
 <div class="modal fade bd-example-modal-lg" id="modalProduct" tabindex="-1" role="dialog" aria-labelledby="modalProductLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="background-color:transparent;border-style: none !important">
@@ -161,19 +74,9 @@
                     </div>
                     <button type="submit" class="modal-button">Registrar</button>
                 </div>
-
             </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-<script type="text/javascript">
-    @if (count($errors) > 0)
-        $('#{{\Session::get('modal')}}').modal('show');
-    @endif
-</script>
-

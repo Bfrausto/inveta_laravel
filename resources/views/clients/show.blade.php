@@ -1,14 +1,6 @@
-
-
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script src="https://kit.fontawesome.com/3fd1b9fc4b.js" crossorigin="anonymous"></script>
-
-<title>Mostrar clientes</title>
+@extends('layouts/navbar')
+@section('title', 'Ver cliente')
+@section('style')
 <style>
 *{
     padding: 0;
@@ -18,15 +10,6 @@
 body{
     font-family: 'Antonio', sans-serif;
 
-}
-#cont-principal{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin: 60px 200px 0px;
-    background-color: whitesmoke;
-    border-radius: 10px  ;
-    box-shadow: 5px 5px 5px #aaaaaa;
 }
 #blog{
     font-size:40px;
@@ -103,14 +86,10 @@ body{
     height:80px;
 }
 </style>
-</head>
-<body>
-@include('layouts/navbar')
-
-{{-- @include('layouts/tohome') --}}
-<div id= "cont-principal">
+@stop
+@section('content')
+<div id= "contenedor-principal">
 <div id= "cont-2">
-    {{-- <p id ="blog">Clientes</p> --}}
     <div id="cont-3">
         <div class="cont">
             <div class="up">
@@ -145,13 +124,9 @@ body{
                     <a style="margin-right: 40px;" href="{{$client->path()}}/edit" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Editar Cliente</a>
                     <a href="{{$client->path()}}/saldo" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Modificar Saldo</a>
                 </div>
-
-
-
             </div>
         </div>
     </div>
 </div>
 </div>
-</body>
-</html>
+@stop

@@ -1,31 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inventario </title>
-  <link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.css')}}">
-  <style>
-    * {
-        margin: 0px;
-        padding: 0px;
-
-    }
-
-    #contenedor-principal{
-        margin: 60px 35px 0px;
-        padding: 0px 100px 30px;
-        border-radius: 10px  ;
-        box-shadow: 5px 5px 5px #aaaaaa;
-        background-color: whitesmoke;
-    }
-</style>
-</head>
-<body>
-    @include('layouts/navbar')
+@extends('layouts/navbar')
+@section('title', 'Inventario')
+@section('content')
   <div id="contenedor-principal">
-        <h1 style="padding-top: 10px;padding-bottom: 10px">Inventario</h1>
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -49,5 +25,4 @@
             </tbody>
         </table>
   </div>
-</body>
-</html>
+  @stop

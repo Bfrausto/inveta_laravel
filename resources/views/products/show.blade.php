@@ -1,15 +1,6 @@
-
-
-
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script src="https://kit.fontawesome.com/3fd1b9fc4b.js" crossorigin="anonymous"></script>
-
-<title>Mostrar productes</title>
+@extends('layouts/navbar')
+@section('title', 'Ver producto')
+@section('style')
 <style>
 *{
     padding: 0;
@@ -18,22 +9,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@600&display=swap');
 body{
     font-family: 'Antonio', sans-serif;
-
-}
-#cont-principal{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin: 60px 200px 0px;
-    background-color: whitesmoke;
-    border-radius: 10px  ;
-    box-shadow: 5px 5px 5px #aaaaaa;
-}
-#blog{
-    font-size:40px;
-    margin:10px  120px;
-    color:rgb(71, 76, 76);
-    font-weight:bold;
 
 }
 #cont-2{
@@ -112,14 +87,10 @@ td {
 }
 
 </style>
-</head>
-<body>
-@include('layouts/navbar')
-
-{{-- @include('layouts/tohome') --}}
-<div id= "cont-principal">
+@stop
+@section('content')
+<div id= "contenedor-principal">
 <div id= "cont-2">
-    {{-- <p id ="blog">Productos</p> --}}
     <div id="cont-3">
         <div class="cont">
             <div class="up">
@@ -136,9 +107,7 @@ td {
                     @if ($product->inv_house)
                         <p>Almacén: {{$product->inv_house}} kg</p>
                     @endif
-                    <img src="{{$product->img}}" alt="" style="height: 200px;height: 100px;                    ">
-
-
+                    <img src="{{$product->img}}" alt="" style="height: 200px;height: 100px;">
                 </div>
                 {{-- <div class="icon">
                     <i class="fas fa-edit" style="background-color:orange"></i>
@@ -148,15 +117,9 @@ td {
                     <a style="margin-right: 40px;" href="{{$product->path()}}/edit" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Editar</a>
                     <a href="{{$product->path()}}/inventario" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Modificar Inventario</a>
                 </div>
-
-
-
             </div>
         </div>
     </div>
 </div>
 </div>
-</body>
-</html>
-
-
+@stop
