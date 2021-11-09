@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Product;
+use App\Models\ProductSale;
 use App\Models\Sale;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -14,27 +16,36 @@ class SaleControllerTest extends Controller
     protected $dataSales;
     public function __construct(){
         $this->middleware(function ($request, $next) {
-
-                $products= Product::all();
-
-                $clients= Client::all();
-                $this->dataSales =[
-                    'clients'=>$clients,
-                    'products'=>$products
-                ];
-                Session::put('data', $this->dataSales);
-
+            $this->dataSales=Session::get("data");
             return $next($request);
         });
+
     }
     public function index()
     {
-        $sales= Sale::all();
+        // if(true){
+        //     dd(true);
+        // }else{
+        //     dd(false);
+        // }
+        $vgar=1>=2?'perro':'gato';
+        // dd(true?true:false,$vgar);
+        $initDate = request('start_at');
+        $endDate = request('end_at');
 
-        return view('sales.index',array('sales'=>$sales,'dataSales' => $this->dataSales));
+        $sales =
+            Sale::
+            whereBetween('created_at', [($initDate?$initDate:'0000-00-00'), ($endDate?Carbon::createFromFormat('Y-m-d', $endDate)->endOfDay():now())])
+            ->where(request('client_id')?[['client_id','=', request('client_id')]]:[['client_id','!=',request('client_id')]] )
+            ->orderBy('created_at')
+            ->get();
+        $clients= Client::all();
+        return view('sales.index',['sales'=>$sales,'clients'=>$clients,'dataSales' => $this->dataSales]);
     }
-    public function show(Sale $sale)
+    public function show($id)
     {
+        $sale= Sale::find($id);
+
         return view('sales.show',array('sale'=>$sale,'dataSales' => $this->dataSales));
     }
     public function storeModal()
@@ -90,7 +101,34 @@ class SaleControllerTest extends Controller
 
     public function store(Request $request)
     {
-        Sale::create($this->validateTicket());
+        $sale=Sale::create($this->validateSale());
+        $products=array_map(function($array){
+
+            return array_values(array_filter(explode((','),$array)));
+        },array_filter(explode(('*'),$request['sale'])));
+
+        foreach($products as $product){
+            ProductSale::create([
+                'sale_id' =>  $sale->id,
+                'product_id' => $product[5],
+                'product_name' => $product[2],
+                'price' => $product[0],
+                'total' => $product[0]*$product[1],
+                'kg' => $product[1],
+                'size'=> $product[4],
+                'out' => $product[6]=="true"?"Almacén":"Bodega"
+            ]);
+            $productModify= Product::find($product[5]);
+            $size=$product[4]=="small"?$productModify->small:($product[4]=="medium"?$productModify->medium:$productModify->big);
+            $size->inv_house=$product[6]=="true"?$size->inv_house-$product[1]:$size->inv_store-$product[1];
+            // if($product[6]=="true"){
+            //     $size->inv_house=$size->inv_house-$product[1];
+            // }else{
+            //     $size->inv_store=$size->inv_store-$product[1];
+            // }
+
+            $size->save();
+        }
 
         return redirect('/sales');
     }
@@ -103,7 +141,6 @@ class SaleControllerTest extends Controller
             'clients'=>$clients,
             'products'=>$products
         ];
-        // dd($sale);
         return view('sales.edit',compact('sale','data'));
     }
     public function update(Sale $sale)
@@ -112,43 +149,34 @@ class SaleControllerTest extends Controller
 
         return redirect('/sales');
     }
+    public function validateSale()
+    {
+
+        $data = request()->validate([
+            'sale'=>'required',
+            'client_id'=>'exists:clients,id',
+            'paid'=>'numeric|min:0',
+            'total'=>'numeric|min:0',
+        ]);
+        if(request()->client_id!=1){
+            $client = Client::find(request()->client_id);
+            $client->balance +=$data['total']-$data['paid'];
+            $client->save();
+        }
+        unset($data['sale']);
+        return $data;
+    }
     public function validateTicket()
     {
 
-        // dd(request());
         $data = request()->validate([
+            'sale'=>'required',
             'client_id'=>'exists:clients,id',
-            'product_id'=>'exists:products,id',
-            'price'=>'numeric|min:0',
-            'kg'=>'numeric|min:0',
-            'inv'=> 'required'
+            'paid'=>'numeric|min:0',
+            'total'=>'numeric|min:0',
         ]);
-        $client = Client::find(request()->client_id);
-        $product= Product::find(request()->product_id);
 
-        $data['client_name'] =$client->name;
-        $data['product_name'] = $product->name;
-
-        $saldo = request()->kg * request()->price;
-        $data['balance'] =$client->balance+$saldo;
-
-        $client->balance +=$saldo;
-        $client->save();
-
-        $data['transaction'] = $saldo;
-
-        if(request()->inv=='store'){
-            $data['inv_store']=request()->kg;
-            $data['inv_house']=0;
-            $product->inv_store-=request()->kg;
-        }else{
-            $data['inv_house']=request()->kg;
-            $data['inv_store']=0;
-            $product->inv_house-=request()->kg;
-        }
-        // $product->save();
-        unset($data['kg']);
-        unset($data['inv']);
+        unset($data['sale']);
 
         return $data;
     }

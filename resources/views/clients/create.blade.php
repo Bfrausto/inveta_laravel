@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         @error('balance')
-                            <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El saldo tiene un formato incorrecto (solo números).</p>
+                            <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El Crédito tiene un formato incorrecto (solo números).</p>
                         @enderror
                     </div>
                     <p style="font-size:13px;padding-bottom:10px">*Datos obligatorios </p>

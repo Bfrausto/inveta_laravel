@@ -1,32 +1,61 @@
-@include('layouts/tohome')
-<div id="contenedor-principal " style="margin-left: 200px;">
-    <h1 style="padding-top: 10px;padding-bottom: 10px">Inventario</h1>
+@extends('layouts/navbar')
+@section('title', 'Venta '.$sale->id)
+@section('content')
+  <div id="contenedor-principal">
+    <h5>Detalles de la venta</h5>
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Total</th>
+            <th scope="col">Pagado</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+
+            <td>{{$sale->created_at->format('d/m/Y')}}</td>
+            <td>{{$sale->getClient($sale->client_id)}}</td>
+            <td>${{$sale->total}}</td>
+            <td>${{$sale->paid}}  </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+    <h5>Productos vendidos</h5>
     <table class="table table-hover">
         <thead class="thead-light">
             <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombre del cliente</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Bodega</th>
-            <th scope="col">Almacén</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Kg</th>
+            <th scope="col">Total</th>
+            <th scope="col">Salida</th>
+
             </tr>
         </thead>
         <tbody>
-            <tr >
-            <th scope="row">{{$sale->id}}</th>
-            <td>{{$sale->name}}</td>
-            <td>{{$sale->description}}</td>
-            <td>{{$sale->inv_store}} kg </td>
-            <td>{{$sale->inv_house}} kg</td>
+            @foreach($sale->productSales as $individualSale)
+            <tr>
+            <td>
+                <strong>{{$loop->iteration}}</strong>
+            </td>
+            <td>{{$individualSale->product_name}}</td>
+            <td>{{$individualSale->size=="small"?'Ch':($individualSale->size=="medium"?'M':'G')}} </td>
+            <td>${{$individualSale->price}}</td>
+            <td>{{$individualSale->kg}} kg  </td>
+            <td>${{$individualSale->total}}</td>
+            <td>{{$individualSale->out}}</td>
             </tr>
+            @endforeach
         </tbody>
     </table>
-    <img src="{{$sale->img}}" alt="" style="height: 200px;margin-bottom: px">
-
 </div>
-<div  style="margin-left: 200px;margin-top:10px">
-    <a style="margin-right: 40px;" href="{{$sale->path()}}/edit" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Editar Producto</a>
 
-    <a href="{{$sale->path()}}/inventario" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Modificar Inventario</a>
-
-</div>
+@stop

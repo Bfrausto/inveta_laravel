@@ -69,7 +69,7 @@
                             </div>
                             <div class="row ">
                                 <div class="col-2 borde salto">
-                                    <p>Saldo Inicial:*</p>
+                                    <p>Crédito Inicial:*</p>
                                 </div>
                                 <div class="col  min">
                                     <input class="input @error('balance') is-danger @enderror" type="text" name="balance"
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             @error('balance')
-                                <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El saldo tiene un formato incorrecto (solo números).</p>
+                                <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El crédito tiene un formato incorrecto (solo números).</p>
                             @enderror
                         </div>
                         <p style="font-size:13px;padding-bottom:10px">*Datos obligatorios </p>

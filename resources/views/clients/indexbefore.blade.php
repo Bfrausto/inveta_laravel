@@ -133,7 +133,7 @@
                                 <p>RFC: {{$client->rfc}}</p>
                             @endif
                             @if ($client->balance)
-                                <p>Saldo: $@money($client->balance)</p>
+                                <p>Crédito: $@money($client->balance)</p>
                             @endif
                         </div>
                         {{-- <div class="icon">

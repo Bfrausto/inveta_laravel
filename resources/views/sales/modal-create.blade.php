@@ -49,7 +49,7 @@
                                             <option selected
                                                 @if (old('product_id') and old('product_id')!='Selecciona un producto')
                                                     value="{{old('product_id')}}">
-                                                    {{App\models\Sale::getProduct(old('product_id'))}}
+                                                    {{-- {{App\models\Sale::getProduct(old('product_id'))}} --}}
                                                 @else
                                                     >Selecciona un producto
                                                 @endif

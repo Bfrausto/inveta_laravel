@@ -12,7 +12,7 @@
             @csrf
             @method('PATCH')
             <div id="contenedor-texto">
-                <p style="padding:10px; text-align:center; font-weight:bold;font-size:25px"> Actualizar Saldo</p>
+                <p style="padding:10px; text-align:center; font-weight:bold;font-size:25px"> Actualizar Crédito</p>
                 <div id="fecha">
                     <p id="fecha-sol"  style="font-size:25px">{{ $client->name}}<br></p>
                 </div>
@@ -21,7 +21,7 @@
                     <div class="container">
                         <div class="row ">
                             <div class="col-2 borde salto">
-                                <p  style="font-weight:bold;">Saldo Actual:</p>
+                                <p  style="font-weight:bold;">Crédito Actual:</p>
                             </div>
                             <div class="col  min">
                                 <input class="input @error('balance') is-danger @enderror" type="text" name="balance"
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         @error('balance')
-                            <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El saldo tiene un formato incorrecto (solo números).</p>
+                            <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El Crédito tiene un formato incorrecto (solo números).</p>
                         @enderror
                     </div>
                 </div>

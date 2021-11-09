@@ -28,4 +28,5 @@ class Client extends Model
         return $this->hasMany(Sales::class)
                 ->latest();
     }
+    
 }

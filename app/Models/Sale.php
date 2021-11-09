@@ -44,4 +44,8 @@ class Sale extends Model
         return $data;
 
     }
+    public function productSales(){
+        return $this->hasmany(ProductSale::class);
+    }
+
 }

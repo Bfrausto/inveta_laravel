@@ -49,26 +49,22 @@ Route::get('/products/{product}/inventario','ProductController@editBalance');
 Route::patch('/products/{product}/inventario','ProductController@updateBalance' );
 
 //registrar producto
-Route::get('/sales', 'SaleController@index')->name('sales');
-Route::post('/sales','SaleController@store' );
-Route::get('/sales/create','SaleController@create')->name('sales.create');
-Route::get('/sales/{sale}', "SaleController@show")->name('sales.show');
+Route::get('/sales', 'SaleControllerTest@index')->name('sales');
 
-Route::get('/sales/{sale}/edit','SaleController@edit')->name('sales.edit');
-Route::patch('/sales/{sale}/edit','SaleController@update' );
-Route::post('/sales/{sale}/delete','SaleController@delete');
-Route::get('/home','SaleController@index');
-Route::get('/','SaleController@index')->name('home');
+Route::get('/home','SaleControllerTest@create');
+
+Route::get('/','SaleControllerTest@create')->name('home');
 
 
 
-Route::post('/salesTest','SaleControllerTest@store' );
-Route::get('/salesTest/create','SaleControllerTest@create')->name('sales.create');
+Route::post('/sales','SaleControllerTest@store' )->name('sales.store');
+Route::get('/sales/create','SaleControllerTest@create')->name('sales.create');
 
-Route::get('/salesTest/{sale}', "SaleControllerTest@show")->name('sales.show');
-Route::get('/salesTest/{sale}/edit','SaleControllerTest@edit')->name('sales.edit');
-Route::patch('/salesTest/{sale}/edit','SaleControllerTest@update' );
-Route::post('/salesTest/{sale}/delete','SaleControllerTest@delete');
+
+Route::get('/sales/{sale}', "SaleControllerTest@show")->name('sales.show');
+Route::get('/sales/{sale}/edit','SaleControllerTest@edit')->name('sales.edit');
+Route::patch('/sales/{sale}/edit','SaleControllerTest@update' );
+Route::post('/sales/{sale}/delete','SaleControllerTest@delete');
 });
 Auth::routes();
 

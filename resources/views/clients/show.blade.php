@@ -113,7 +113,7 @@ body{
                         <p>RFC: {{$client->rfc}}</p>
                     @endif
                     @if ($client->balance)
-                        <p>Saldo: $@money($client->balance)</p>
+                        <p>Crédito: $@money($client->balance)</p>
                     @endif
                 </div>
                 {{-- <div class="icon">
@@ -122,7 +122,7 @@ body{
                 </div> --}}
                 <div  style="margin-top:150px;padding-left:15px">
                     <a style="margin-right: 40px;" href="{{$client->path()}}/edit" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Editar Cliente</a>
-                    <a href="{{$client->path()}}/saldo" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Modificar Saldo</a>
+                    <a href="{{$client->path()}}/saldo" class="rounded-full border borde-gray-300 py-2 px-4 text-black text-sm mr-2">Modificar Crédito</a>
                 </div>
             </div>
         </div>

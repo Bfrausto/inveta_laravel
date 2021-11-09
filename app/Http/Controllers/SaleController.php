@@ -14,16 +14,7 @@ class SaleController extends Controller
     protected $dataSales;
     public function __construct(){
         $this->middleware(function ($request, $next) {
-
-                $products= Product::all();
-
-                $clients= Client::all();
-                $this->dataSales =[
-                    'clients'=>$clients,
-                    'products'=>$products
-                ];
-                Session::put('data', $this->dataSales);
-
+            $this->dataSales=Session::get("data");
             return $next($request);
         });
     }

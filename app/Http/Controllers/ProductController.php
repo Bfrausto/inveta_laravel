@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,33 +33,65 @@ class ProductController extends Controller
     }
     public function storeModal(Request $request)
     {
-        $validator=$this->validateData();
+        $validator=$this->validateData($request);
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
+                        ->withInput($request->input())
                         ->with('modal','modalProduct');
         }
         $attributes=$validator->validated();
         if($request->img){
-
             $attributes['img'] =request('img')->store('imgproducts');
         }
+        $small=$this->getSizes('small',$request,$attributes);
+        $medium=$this->getSizes('medium',$request,$attributes);
+        $big=$this->getSizes('big',$request,$attributes);
+        if($small==null && $medium==null && $big==null){
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input())
+                ->with('modal','modalProduct');
+        }
 
-
-        $product=Product::create($attributes);
+        $product=Product::create([
+            'img'=>$attributes['img']??null,
+            'name'=>$attributes['name'],
+            'description'=>$attributes['description'],
+            'small_id'=>$small->id??null,
+            'medium_id'=>$medium->id??null,
+            'big_id'=>$big->id??null,
+        ]);
 
         return redirect($product->path());
     }
 
-
-    public function validateData()
+    private function getSizes($size,$request,$attributes){
+        if($request[$size]){
+            return Size::create(['price'=> $attributes['price_'.$size],
+                            'inv_store'=> $attributes['inv_store_'.$size],
+                            'inv_house'=> $attributes['inv_house_'.$size]]);
+        }
+        return null;
+    }
+    public function validateData($request)
     {
         return Validator::make(request()->toArray(), [
-            'inv_store'=>'numeric|min:0',
-            'inv_house'=>'numeric|min:0',
-            'img' => 'image',
+            'img' => 'image|required|mimes:jpeg,png,jpg,gif,svg',
             'name'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            'price_small'=>'numeric|min:0|'.($request['small']?'required':'nullable'),
+            'inv_store_small'=>'numeric|min:0|'.($request['small']?'required':'nullable'),
+            'inv_house_small'=>'numeric|min:0|'.($request['small']?'required':'nullable'),
+            'price_medium'=>'numeric|min:0|'.($request['medium']?'required':'nullable'),
+            'inv_store_medium'=>'numeric|min:0|'.($request['medium']?'required':'nullable'),
+            'inv_house_medium'=>'numeric|min:0|'.($request['medium']?'required':'nullable'),
+            'price_big'=>'numeric|min:0|'.($request['big']?'required':'nullable'),
+            'inv_store_big'=>'numeric|min:0|'.($request['big']?'required':'nullable'),
+            'inv_house_big'=>'numeric|min:0|'.($request['big']?'required':'nullable'),
+        ],[
+            'image'=>'La imagen tiene un formato incorrecto',
+            'required'=>" "
         ]);
     }
     public function updateModal(Client $client,$modal)

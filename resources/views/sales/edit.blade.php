@@ -47,7 +47,7 @@
                                     <select name="product_id" class="custom-select " id="inputGroupSelect01 "style="@error('product_id')border:0.5px solid red; @enderror">
                                         <option selected
                                                 value="{{$sale->product_id}}">
-                                                {{App\models\Sale::getProduct($sale->product_id)}}
+                                                {{-- {{App\models\Sale::getProduct($sale->product_id)}} --}}
                                         </option>
                                         @foreach ($data['products'] as $product)
                                             <option  value="{{$product->id}}">

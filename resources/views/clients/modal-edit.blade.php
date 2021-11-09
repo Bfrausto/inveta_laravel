@@ -3,7 +3,7 @@
 <form method="POST" action="{{$client->path()}}/delete">
     @csrf
     <button type="button" class="fas fa-edit" data-toggle="modal" data-target="#modal{{$client->id}}" style="border: none;color: #007bff; "></button>
-    <button type="submit" class="fas fa-trash-alt" style="border: none;color: rgb(201, 13, 13);"></button>
+    <button id="delete" type="submit" class="fas fa-trash-alt" style="border: none;color: rgb(201, 13, 13);" onclick="return confirm('¿Estás seguro de que quieres eliminar este cliente?');"></button>
 </form>
 <div class="modal fade bd-example-modal-lg" id="modal{{$client->id}}" tabindex="-1" role="dialog" aria-labelledby="modal{{$client->id}}Label" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -76,8 +76,8 @@
                                         </div>
                                     </div>
                                     <div class="row ">
-                                        <div class="col-2 borde salto">
-                                            <p>Saldo Actual:*</p>
+                                        <div class="col-2 borde ">
+                                            <p>Crédito:*</p>
                                         </div>
                                         <div class="col  min">
                                             <input class="input @error('balance') is-danger @enderror" type="text" name="balance"
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     @error('balance')
-                                        <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El saldo tiene un formato incorrecto (solo números).</p>
+                                        <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El crédito tiene un formato incorrecto (solo números).</p>
                                     @enderror
                                 </div>
                                 <p style="font-size:13px;padding-bottom:10px">*Datos obligatorios </p>
