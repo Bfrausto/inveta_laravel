@@ -1,5 +1,3 @@
-
-
 <form method="POST" action="{{$client->path()}}/delete">
     @csrf
     <button type="button" class="fas fa-edit" data-toggle="modal" data-target="#modal{{$client->id}}" style="border: none;color: #007bff; "></button>
@@ -14,78 +12,55 @@
                         @csrf
                         @method('PATCH')
                         <div id="modal-contenedor-texto">
-                            <div id="fecha">
-                                <p id="fecha-sol">Actualizar Cliente<br></p>
-                            </div>
+                            <p id="fecha-sol">Actualizar Cliente<br></p>
                             <div class="boxes">
-                                <p style="padding-bottom:10px">Datos del Cliente </p>
-                                <div class="modal-container" >
-                                    <div class="row">
-                                        <div class="col-2 borde">
-                                            <p>Nombre:*</p>
+                                <p>Datos del Cliente</p>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Nombre:*</span>
+                                    <input type="text " class="form-control  @error('name') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="name" value="{{ $client->name }}">
+                                    @error('name')
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                            Ingresar nombre del cliente.
                                         </div>
-                                        <div class="col borde2">
-                                            <input class="input @error('name') is-danger @enderror" type="text" name="name" required value="{{ $client->name}}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2 borde">
-                                            <p>Empresa:</p>
-                                        </div>
-                                        <div class="col borde2">
-                                            <input class="input @error('enterprise') is-danger @enderror" type="text" name="enterprise" value="{{ $client->enterprise}}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2 borde ">
-                                            <p>Dirección:</p>
-                                        </div>
-                                        <div class="col borde2">
-                                            <input class="input @error('adress') is-danger @enderror" type="text" name="adress" value="{{ $client->adress }}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2 borde">
-                                            <p>Correo:</p>
-                                        </div>
-                                        <div class="col borde2">
-                                            <input class="input @error('email') is-danger @enderror" type="text" name="email" value="{{ $client->email }}">
-                                        </div>
-                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Empresa:</span>
+                                    <input type="text " class="form-control  @error('enterprise') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="enterprise" value="{{ $client->enterprise}}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Dirección:</span>
+                                    <input type="text " class="form-control @error('adress') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="adress" value="{{ $client->adress }}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Correo:</span>
+                                    <input type="text " class="form-control  @error('email') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="email" value="{{ $client->email }}">
                                     @error('email')
-                                        <p class="help is-danger is-size-6" style="margin-left:112px; text-align: left;padding-top:0px">El correo tiene un formato incorrecto (usuario@dominio).</p>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                            El correo tiene un formato incorrecto (usuario@dominio).
+                                        </div>
                                     @enderror
-                                    <div class="row">
-                                        <div class="col-2 borde">
-                                            <p>Teléfono:</p>
-                                        </div>
-                                        <div class="col  min">
-                                            <input class="input @error('tel') is-danger @enderror" type="text" name="tel" value="{{$client->tel}}">
-                                        </div>
-                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Teléfono:</span>
+                                    <input type="text " class="form-control  @error('tel') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="tel" value="{{ $client->tel }}">
                                     @error('tel')
-                                        <p class="help is-danger is-size-6" style="margin-left:112px; text-align: left;padding-top:0px">El teléfono tiene un formato incorrecto.</p>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                            El teléfono tiene un formato incorrecto.
+                                        </div>
                                     @enderror
-                                    <div class="row">
-                                        <div class="col-2 borde ">
-                                            <p>RFC:</p>
-                                        </div>
-                                        <div class="col  min">
-                                            <input class="input @error('RFC') is-danger @enderror" type="text" name="rfc"
-                                                value="{{ $client->rfc }}">
-                                        </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-2 borde ">
-                                            <p>Crédito:*</p>
-                                        </div>
-                                        <div class="col  min">
-                                            <input class="input @error('balance') is-danger @enderror" type="text" name="balance"
-                                                required value="{{$client->balance}}">
-                                        </div>
-                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">RFC:</span>
+                                    <input type="text " class="form-control @error('rfc') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="rfc" value="{{ $client->rfc }}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Crédito:*</span>
+                                    <input type="text " class="form-control  @error('balance') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="balance" value="{{ $client->balance }}">
                                     @error('balance')
-                                        <p class="help is-danger is-size-6" style="margin-left:112px;text-align: left;padding-top:0px">El crédito tiene un formato incorrecto (solo números).</p>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                            El crédito tiene un formato incorrecto (solo números).
+                                        </div>
                                     @enderror
                                 </div>
                                 <p style="font-size:13px;padding-bottom:10px">*Datos obligatorios </p>
@@ -99,11 +74,8 @@
     </div>
 </div>
 
-
-
 <script type="text/javascript">
     @if (count($errors) > 0)
         $('#{{\Session::get('modal')}}').modal('show');
     @endif
 </script>
-

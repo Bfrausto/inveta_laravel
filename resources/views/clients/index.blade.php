@@ -20,7 +20,7 @@
                 @foreach($clients as $client)
                 <tr>
                 <td scope="row">{{$client->id}}</td>
-                <td><a href="{{$client->path()}}"><p>{{$client->name}}</p></a></td>
+                <td><b>{{$client->name}}</b></td>
                 <td>@if ($client->enterprise){{$client->enterprise}} @endif</td>
                 {{-- <td>@if ($client->adress){{$client->adress}}@endif</td> --}}
                 <td>@if ($client->email){{$client->email}}@endif</td>
