@@ -21,14 +21,9 @@ Route::middleware('auth' )->group(function () {
 //mostrar clientes
 Route::get('/clients', 'ClientController@index')->name('clients');
 Route::post('/clients','ClientController@store' );
-Route::get('/clients/create','ClientController@create')->name('clients.create');
 Route::get('/clients/{client}', "ClientController@show")->name('clients.show');
-
 Route::get('/clients/{client}/edit','ClientController@edit')->name('clients.edit');
-Route::patch('/clients/{client}/edit','ClientController@update' );
-Route::patch('/clients/{client}/edit/{modal}','ClientController@updateModal' );
-
-
+Route::patch('/clients/{client}/edit/{modal}','ClientController@update' );
 Route::get('/clients/{client}/saldo','ClientController@editBalance');
 Route::patch('/clients/{client}/saldo','ClientController@updateBalance' );
 Route::post('/clients/{client}/delete','ClientController@delete');
