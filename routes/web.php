@@ -59,6 +59,8 @@ Route::get('/','SaleControllerTest@create')->name('home');
 
 Route::post('/sales','SaleControllerTest@store' )->name('sales.store');
 Route::get('/sales/create','SaleControllerTest@create')->name('sales.create');
+Route::get('/sales/report','SaleControllerTest@report')->name('sales.report');
+Route::get('/sales/report/csv','SaleControllerTest@generateCSV')->name('sales.generateCSV');
 
 
 Route::get('/sales/{sale}', "SaleControllerTest@show")->name('sales.show');

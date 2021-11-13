@@ -23,13 +23,6 @@ class SaleControllerTest extends Controller
     }
     public function index()
     {
-        // if(true){
-        //     dd(true);
-        // }else{
-        //     dd(false);
-        // }
-        $vgar=1>=2?'perro':'gato';
-        // dd(true?true:false,$vgar);
         $initDate = request('start_at');
         $endDate = request('end_at');
 
@@ -42,6 +35,84 @@ class SaleControllerTest extends Controller
         $clients= Client::all();
         return view('sales.index',['sales'=>$sales,'clients'=>$clients,'dataSales' => $this->dataSales]);
     }
+    public function report(){
+
+        $initDate = request('start_at');
+        $endDate = request('end_at');
+
+        $sales =
+            Sale::
+            whereBetween('created_at', [($initDate?$initDate:'0000-00-00'), ($endDate?Carbon::createFromFormat('Y-m-d', $endDate)->endOfDay():now())])
+            ->selectRaw("SUM(total) as total")
+            ->selectRaw("SUM(paid) as paid")
+            ->selectRaw("client_id,created_at")
+            ->groupBy('client_id')
+
+            ->orderBy('created_at')
+            ->get();
+            // $sales2 =
+
+        // dd($sales);
+        $clients= Client::all();
+        return view('sales.report',['sales'=>$sales,'clients'=>$clients,'dataSales' => $this->dataSales]);
+    }
+    public function generateCSV(Request $request)
+    {
+        $initDate = request('start_at');
+        $endDate = request('end_at');
+        $ids=array_unique(array_values(array_filter(explode((','),request('ids')))));
+        $sales =request('ids')?
+            Sale::
+            whereBetween('created_at', [($initDate?$initDate:'0000-00-00'), ($endDate?Carbon::createFromFormat('Y-m-d', $endDate)->endOfDay():now())])
+            ->selectRaw("SUM(total) as total")
+            ->selectRaw("SUM(paid) as paid")
+            ->selectRaw("client_id,created_at")
+            ->whereIn('client_id',$ids)
+            ->groupBy('client_id')
+
+            ->orderBy('created_at')
+            ->get():
+            Sale::
+            whereBetween('created_at', [($initDate?$initDate:'0000-00-00'), ($endDate?Carbon::createFromFormat('Y-m-d', $endDate)->endOfDay():now())])
+            ->selectRaw("SUM(total) as total")
+            ->selectRaw("SUM(paid) as paid")
+            ->selectRaw("client_id,created_at")
+            ->groupBy('client_id')
+
+            ->orderBy('created_at')
+            ->get();
+
+        $sales =  $sales->map(function ($sale) {
+            return [
+                'Nombre del cliente' => $sale->getClient($sale->client_id),
+                'Total comprado' =>$sale->total,
+                'Total pagado' => $sale->paid
+            ];
+        })->toArray();
+
+        return $this->generateCSVResponse($sales);
+    }
+    function generateCSVResponse($list, $fileName = 'records.csv'){
+    $headers = [
+        'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+        'Content-type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename=$fileName",
+        'Expires' => '0',
+        'Pragma' => 'public'
+    ];
+
+    array_unshift($list, array_keys($list[0]));
+
+    $callback = function () use ($list) {
+        $FH = fopen('php://output', 'w');
+        foreach ($list as $row) {
+            fputcsv($FH, $row);
+        }
+        fclose($FH);
+    };
+
+    return response()->stream($callback, 200, $headers);
+}
     public function show($id)
     {
         $sale= Sale::find($id);

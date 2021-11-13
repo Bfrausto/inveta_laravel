@@ -2,8 +2,8 @@
 @section('title', 'Ventas')
 @section('content')
   <div id="contenedor-principal">
-
-        <div class="col-sm-12 p-0 mb-2">
+    <div class="d-flex justify-content-between">
+        <div class="  mb-2">
             <form class="form-inline" method="GET">
                 <div class="form-group">
 
@@ -45,8 +45,16 @@
                 </select>
 
                 <button type="submit" class="btn btn-primary ml-1">Filtrar</button>
+
             </form>
         </div>
+        <div class="">
+            <a href="{{route('sales.report')}}?start_at={{request('start_at')}}&end_at={{request('end_at')}}&status={{request('status')}}"
+             class="btn btn-outline-primary "
+           ><i class="fas fa-file-alt"></i> Ver Reportes
+        </a>
+    </div>
+    </div>
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -70,7 +78,7 @@
                 <td>{{$sale->total}}</td>
                 <td>{{$sale->paid}}  </td>
                 <td>
-                    <a href="{{route('sales.show',$sale->id)}}"> <i class="far fa-eye"></i></a>
+                    <a href="{{route('sales.show',$sale->id)}}"> <i class="far fa-eye"></i> Visualizar</a>
 
 
                  </td>
