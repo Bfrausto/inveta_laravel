@@ -30,16 +30,11 @@ class ProductSales extends Migration
 
             $table->foreign('sale_id')
             ->references('id')
-            ->on('sales')
-            ->onDelete('Cascade');
-
-
+            ->on('sales');
 
             $table->foreign('product_id')
                 ->references('id')
-                ->on('products')
-                ->onDelete('Cascade');
-
+                ->on('products');
         });
     }
 

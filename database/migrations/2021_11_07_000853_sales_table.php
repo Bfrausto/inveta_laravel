@@ -23,8 +23,7 @@ class SalesTable extends Migration
 
             $table->foreign('client_id')
             ->references('id')
-            ->on('clients')
-            ->onDelete('Cascade');
+            ->on('clients');
         });
 
     }

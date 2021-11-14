@@ -21,22 +21,19 @@ class CreateProductsTable extends Migration
             $table->foreignId('medium_id')->nullable();
             $table->foreignId('big_id')->nullable();
 
-            $table->string('img',100);
+            $table->string('img',100)->nullable();
             $table->timestamps();
 
             $table->foreign('small_id')
             ->references('id')
-            ->on('sizes')
-            ->onDelete('Cascade');
+            ->on('sizes');
+
             $table->foreign('medium_id')
             ->references('id')
-            ->on('sizes')
-            ->onDelete('Cascade');
+            ->on('sizes');
             $table->foreign('big_id')
             ->references('id')
-            ->on('sizes')
-            ->onDelete('Cascade');
-
+            ->on('sizes');
         });
     }
 
