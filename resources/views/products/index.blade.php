@@ -18,14 +18,14 @@
                 <th scope="col">Precio</th>
                 <th scope="col">Bodega</th>
                 <th scope="col">Almacén</th>
-
+                <th scope="col">Editar</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($products as $product)
                 <tr>
                     <td scope="row">{{$product->id}} </td>
-                    <td><a href="{{$product->path()}}">{{$product->name}}</a></td>
+                    <td><b>{{$product->name}}</b></td>
                     <td>{{$product->description}}</td>
                     <td>
                         @if($product->small)<strong>Ch:</strong> ${{$product->small->price}} @if($product->medium||$product->big)<strong>|</strong>@endif @endif
@@ -41,6 +41,9 @@
                         @if($product->small)<strong>Ch: </strong>{{$product->small->inv_house}} kg @if($product->medium||$product->big)<strong>|</strong>@endif @endif
                         @if($product->medium)<strong>M: </strong>{{$product->medium->inv_house}} kg @if($product->big)<strong>|</strong>@endif @endif
                         @if($product->big)<strong>G: </strong>{{$product->big->inv_house}} kg @endif
+                    </td>
+                    <td>
+                        @include("products.modal-edit")
                     </td>
                 </tr>
                 @endforeach

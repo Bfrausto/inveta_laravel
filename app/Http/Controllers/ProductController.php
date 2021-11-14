@@ -8,7 +8,6 @@ use App\Models\Size;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     protected $dataSales;
@@ -18,20 +17,19 @@ class ProductController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $products= Product::all();
         return view('products.index',array('products'=>$products,'dataSales' => $this->dataSales));
     }
-    public function show(Product $product)
-    {
-        return view('products.show',array('product'=>$product,'dataSales' => $this->dataSales));
-    }
+
     public function create()
     {
         return view('products.create');
     }
-    public function storeModal(Request $request)
+
+    public function store(Request $request)
     {
         $validator=$this->validateData($request);
         if ($validator->fails()) {
@@ -44,6 +42,7 @@ class ProductController extends Controller
         if($request->img){
             $attributes['img'] =request('img')->store('imgproducts');
         }
+
         $small=$this->getSizes('small',$request,$attributes);
         $medium=$this->getSizes('medium',$request,$attributes);
         $big=$this->getSizes('big',$request,$attributes);
@@ -63,7 +62,7 @@ class ProductController extends Controller
             'big_id'=>$big->id??null,
         ]);
 
-        return redirect($product->path());
+        return redirect('/products');
     }
 
     private function getSizes($size,$request,$attributes){
@@ -77,95 +76,116 @@ class ProductController extends Controller
     public function validateData($request)
     {
         return Validator::make(request()->toArray(), [
-            'img' => 'image|required|mimes:jpeg,png,jpg,gif,svg',
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'name'=>'required',
             'description'=>'required',
-            'price_small'=>'numeric|min:0|'.($request['small']?'required':'nullable'),
-            'inv_store_small'=>'numeric|min:0|'.($request['small']?'required':'nullable'),
-            'inv_house_small'=>'numeric|min:0|'.($request['small']?'required':'nullable'),
-            'price_medium'=>'numeric|min:0|'.($request['medium']?'required':'nullable'),
-            'inv_store_medium'=>'numeric|min:0|'.($request['medium']?'required':'nullable'),
-            'inv_house_medium'=>'numeric|min:0|'.($request['medium']?'required':'nullable'),
-            'price_big'=>'numeric|min:0|'.($request['big']?'required':'nullable'),
-            'inv_store_big'=>'numeric|min:0|'.($request['big']?'required':'nullable'),
-            'inv_house_big'=>'numeric|min:0|'.($request['big']?'required':'nullable'),
+            'price_small'=>'numeric|'.($request['small']?'required':'nullable'),
+            'inv_store_small'=>'numeric|'.($request['small']?'required':'nullable'),
+            'inv_house_small'=>'numeric|'.($request['small']?'required':'nullable'),
+            'price_medium'=>'numeric|'.($request['medium']?'required':'nullable'),
+            'inv_store_medium'=>'numeric|'.($request['medium']?'required':'nullable'),
+            'inv_house_medium'=>'numeric|'.($request['medium']?'required':'nullable'),
+            'price_big'=>'numeric|'.($request['big']?'required':'nullable'),
+            'inv_store_big'=>'numeric|'.($request['big']?'required':'nullable'),
+            'inv_house_big'=>'numeric|'.($request['big']?'required':'nullable'),
         ],[
             'image'=>'La imagen tiene un formato incorrecto',
             'required'=>" "
         ]);
     }
-    public function updateModal(Client $client,$modal)
+    public function update(Product $product,$modal,Request $request)
     {
-        $validator=$this->validateData();
+        $validator=$this->validateDataId($request,$product);
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
-                        ->with('modal',$modal);
+                        ->withInput($request->input())
+                        ->with('modal','modalProduct');
         }
 
-        $client->update($validator->validated());
-        return redirect($client->path());
-    }
-    public function store(Request $request)
-    {
-        // $name = $request->name;
-        // $inv_store = $request->inv_store;
-
-        $attributes=$this->validateArticle();
+        $attributes=$validator->validated();
         if($request->img){
-
             $attributes['img'] =request('img')->store('imgproducts');
         }
-        Product::create($attributes);
-        // $product=new Product;
+        $small=$this->getSizesId('small-'.$product->id,$request,$attributes,$product->small,$product);
+        $medium=$this->getSizesId('medium-'.$product->id,$request,$attributes,$product->medium,$product);
+        $big=$this->getSizesId('big-'.$product->id,$request,$attributes,$product->big,$product);
+        if($small==null && $medium==null && $big==null){
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input())
+                ->with('modal','modalProduct');
+        }
 
-        // $product->name=$request->name;
-        // $product->inv_store=$request->inv_store;
-        // $product->inv_house=$request->inv_house;
-        // $product->description=$request->description;
-        // $product->img=$url;
-        // $product->save();
-
+        $product->update([
+            'img'=>$attributes['img']??null,
+            'name'=>$attributes['name'],
+            'description'=>$attributes['description'],
+            'small_id'=>$small->id??null,
+            'medium_id'=>$medium->id??null,
+            'big_id'=>$big->id??null,
+        ]);
         return redirect('/products');
     }
-    public function validateArticle()
+
+    private function getSizesId($size,$request,$attributes,$productSize,$product){
+
+        if($request[$size]){
+            if($productSize){
+
+                $productSize->update([
+                    'price'=> $attributes['price_'.$size],
+                    'inv_store'=> $attributes['inv_store_'.$size],
+                    'inv_house'=> $attributes['inv_house_'.$size]
+                ]);
+                return $productSize;
+            }
+            return Size::create(['price'=> $attributes['price_'.$size],
+                            'inv_store'=> $attributes['inv_store_'.$size],
+                            'inv_house'=> $attributes['inv_house_'.$size]]);
+        }
+        if($productSize){
+            if($productSize==$product->small){
+                $product->small_id=null;
+            }elseif($productSize==$product->medium) {
+                $product->medium_id=null;
+            }else{
+                $product->big_id=null;
+            }
+            $product->save();
+            $productSize->delete();
+        }
+        return null;
+    }
+
+    public function validateDataId($request,$product)
     {
-        return request()->validate([
-            'inv_store'=>'numeric|min:0',
-            'inv_house'=>'numeric|min:0',
-            'img' => 'image',
+        return Validator::make(request()->toArray(), [
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'name'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            'price_small-'.$product->id=>'numeric|'.($request['small-'.$product->id]?'required':'nullable'),
+            'inv_store_small-'.$product->id=>'numeric|'.($request['small-'.$product->id]?'required':'nullable'),
+            'inv_house_small-'.$product->id=>'numeric|'.($request['small-'.$product->id]?'required':'nullable'),
+            'price_medium-'.$product->id=>'numeric|'.($request['medium-'.$product->id]?'required':'nullable'),
+            'inv_store_medium-'.$product->id=>'numeric|'.($request['medium-'.$product->id]?'required':'nullable'),
+            'inv_house_medium-'.$product->id=>'numeric|'.($request['medium-'.$product->id]?'required':'nullable'),
+            'price_big-'.$product->id=>'numeric|'.($request['big-'.$product->id]?'required':'nullable'),
+            'inv_store_big-'.$product->id=>'numeric|'.($request['big-'.$product->id]?'required':'nullable'),
+            'inv_house_big-'.$product->id=>'numeric|'.($request['big-'.$product->id]?'required':'nullable'),
+        ],[
+            'image'=>'La imagen tiene un formato incorrecto',
+            'required'=>" "
         ]);
     }
-    public function edit(Product $product)
+
+    public function delete(Product $product)
     {
-        return view('products.edit',compact('product'));
-    }
+        $product->small?$product->small->delete():'';
+        $product->medium?$product->medium->delete():'';
 
-    public function update(Product $product)
-    {
-        $attributes=$this->validateArticle();
-        if(request()->img){
-
-            $attributes['img'] =request('img')->store('imgproducts');
-        }
-        $product->update($attributes);
-        return redirect($product->path());
-    }
-
-    public function editBalance(Product $product)
-    {
-        return view('products.balance',compact('product'));
-
-    }
-
-    public function updateBalance(Product $product)
-    {
-        $product->update(request()->validate([
-            'inv_store'=>'numeric|min:0',
-            'inv_house'=>'numeric|min:0',
-        ]));
-        return redirect($product->path());
+        $product->big?$product->big->delete():'';
+        $product->delete();
+        return redirect('/products');
     }
 }

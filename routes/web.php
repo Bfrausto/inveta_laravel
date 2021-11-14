@@ -29,16 +29,11 @@ Route::post('/clients/{client}/delete','ClientController@delete');
 
 //registrar producto
 Route::get('/products', 'ProductController@index')->name('products');
-Route::post('/products','ProductController@storeModal' );
-Route::get('/products/create','ProductController@create')->name('products.create');
+Route::post('/products','ProductController@store' );
 Route::get('/products/{product}', "ProductController@show")->name('products.show');
+Route::post('/products/{product}/delete','ProductController@delete');
+Route::patch('/products/{product}/edit/{modal}','ProductController@update' );
 
-
-Route::get('/products/{product}/edit','ProductController@edit');
-Route::patch('/products/{product}/edit','ProductController@update' );
-
-Route::get('/products/{product}/inventario','ProductController@editBalance');
-Route::patch('/products/{product}/inventario','ProductController@updateBalance' );
 
 //registrar producto
 Route::get('/sales', 'SaleControllerTest@index')->name('sales');
