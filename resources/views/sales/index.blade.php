@@ -26,7 +26,7 @@
                     @else
                         <option
                             value="">
-                            Quitar clientes de filtro
+                            Ver todos los clientes
                         </option>
                     @endif
                     @foreach ($clients as $client)
@@ -64,6 +64,7 @@
                 <th scope="col">Total</th>
                 <th scope="col">Pagado</th>
                 <th scope="col">Ver detalles</th>
+                <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,9 +80,15 @@
                 <td>{{$sale->paid}}  </td>
                 <td>
                     <a href="{{route('sales.show',$sale->id)}}"> <i class="far fa-eye"></i> Visualizar</a>
-
-
                  </td>
+                 <td>
+                    <form method="POST" action="{{$sale->path()}}/delete">
+                        @csrf
+
+                        <button id="delete" type="submit" class="fas fa-trash-alt" style="border: none;color: rgb(201, 13, 13);" onclick="return confirm('¿Estás seguro de que quieres eliminar esta venta?');"></button>
+                    </form>
+                 </td>
+
                 </tr>
                 @endforeach
             </tbody>

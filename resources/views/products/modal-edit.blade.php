@@ -17,7 +17,7 @@
                                 <p>Datos del Producto:</p>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Nombre:</span>
-                                    <input type="text " class="form-control  @error('name') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="name" value="{{$product->name }}" placeholder="Hass">
+                                    <input type="text " class="form-control  @error('name') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="name" value="{{$product->name }}" placeholder="Negro">
                                     @error('name')
                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                             Ingresar nombre del producto.
@@ -25,8 +25,8 @@
                                     @enderror
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Descripción:</span>
-                                    <input type="text " class="form-control  @error('description') is-invalid @enderror"   name="description" value="{{ $product->description }}" placeholder="Negro">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Tipo:</span>
+                                    <input type="text " class="form-control  @error('description') is-invalid @enderror"   name="description" value="{{ $product->description }}" placeholder="Hass">
                                     @error('description')
                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                             Ingresar el tipo del producto.

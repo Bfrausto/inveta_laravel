@@ -204,94 +204,9 @@
 
             </div>
         @endforeach
-        @foreach ($data['products'] as $product)
-            <div class=" h-30 m-2 p-2 rounded pt-0" style="background-color:#32b5e1">
-                <p class="selectedName" style="color:white; font-size:50px; text-align: center;     margin-top: -10px;" >{{$product->name}}</p>
-                <p class="selectedDescription" style="text-align: center; font-size:25px; margin-top: -20px; color:#e7e7e7">{{$product->description}}</p>
-                <div class="d-flex justify-content-center sizes-product">
-                    @if($product->small)
-                        <input class="btn-check " type="radio" id="small{{$product->id}}"  name="size"  value="{{$product->id}}-{{$product->small->price}}-{{$product->name}}/{{$product->description}}-small">
-                        <label class="btn btn-outline-secondary sizes  rounded-circle  @if($product->medium||$product->big) mr-1 @endif" for="small{{$product->id}}"
-                        >Ch</label>
-                    @endif
-                    @if($product->medium)
-                    <input class="btn-check"  type="radio" id="medium{{$product->id}}" name="size" value="{{$product->id}}-{{$product->medium->price}}-{{$product->name}}/{{$product->description}}-medium" >
-                        <label class="btn btn-outline-secondary sizes  rounded-circle  @if($product->big) mr-1 @endif" for="medium{{$product->id}}">M</label>
-                        @endif
-                    @if($product->big)
-                    <input class="btn-check" type="radio" id="big{{$product->id}}" name="size"  value="{{$product->id}}-{{$product->big->price}}-{{$product->name}}/{{$product->description}}-big">
-                    <label class="btn btn-outline-secondary sizes  rounded-circle" for="big{{$product->id}}">G</label>
-                    @endif
-
-                </div>
-
-                <div class="input-group mb-1">
-                    <p style="font-size: 18px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-
-                    <input style="height: 25px;" id="kg-{{$product->id}}" type="text" class="form-control" placeholder="0">
-                    <p style="font-size: 18px;">&nbsp;kg&nbsp;</p>
+       
 
 
-                </div>
-                <div class="input-group mb-1">
-
-                    <p style="font-size: 18px;">&nbsp;&nbsp;$&nbsp;&nbsp;</p>
-
-                    <input style="height: 25px;"  id="price-{{$product->id}}" type="text" class="form-control  " placeholder="0" >
-                    <p style="font-size: 18px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </button>
-                </div>
-
-            </div>
-        @endforeach
-
-            {{-- @foreach ($data['products'] as $product)
-                <div class=" h-30 m-2 p-2 rounded pt-0" style="background-color:#32b5e1">
-                    <p style="color:white; font-size:50px; text-align: center;     margin-top: -10px;" >{{$product->name}}</p>
-                    <p style="text-align: center; font-size:25px; margin-top: -20px; color:#e7e7e7">{{$product->description}}</p>
-                    <div class="d-flex justify-content-center">
-                        @if($product->small)
-                            <input type="checkbox" class="btn-check" id="small{{$product->id}}" autocomplete="off" name="small"  >
-                            <label class="btn btn-outline-secondary sizes  rounded-circle  @if($product->medium||$product->big) mr-1 @endif" for="small{{$product->id}}"
-                            >Ch</label>
-                        @endif
-
-
-                        @if($product->medium)
-                        <input type="checkbox" class="btn-check" id="medium{{$product->id}}" autocomplete="off" name="medium"  >
-                            <label class="btn btn-outline-secondary sizes  rounded-circle  @if($product->big) mr-1 @endif" for="medium{{$product->id}}">M</label>
-                            @endif
-                        @if($product->big)
-                        <input type="checkbox" class="btn-check" id="big{{$product->id}}" autocomplete="off" name="big"  >
-                        <label class="btn btn-outline-secondary sizes  rounded-circle" for="big{{$product->id}}">G</label>
-                        @endif
-                    </div>
-
-                    <div class="input-group mb-1">
-                        <button type ="button"class="" style="border:none   ; background-color: transparent;">
-                            <i class="fas fa-minus-circle icons mr-1" style="font-size: 25px;"></i>
-                        </button>
-
-                        <input style="height: 25px;" id="pay" type="text" class="form-control ml-3 mr-1" placeholder="0">
-                        <p>kg</p>
-                        <button  type ="button" class="" style="border:none   ; background-color: transparent;">
-                            <i class="fas fa-plus-circle icons ml-2" style="font-size: 25px;"></i>
-                        </button>
-
-                    </div>
-                    <div class="input-group mb-1">
-                        <button  type ="button" class="" style="border:none   ; background-color: transparent;">
-                            <i class="fas fa-minus-circle icons mr-2" style="font-size: 25px;     "></i>
-                        </button><p>$</p>
-
-                        <input style="height: 25px;" id="pay" type="text" class="form-control ml-1 mr-4 " placeholder="0">
-                        <button  type ="button" class="" style="border:none   ; background-color: transparent;">
-                            <i class="fas fa-plus-circle icons ml-1" style="font-size: 25px;"></i>
-                        </button>
-                    </div>
-
-                </div>
-            @endforeach --}}
         </div>
     </div>
 </div>

@@ -19,7 +19,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clients= Client::all();
+        $clients= Client::where('id','!=',1)->get();
         return view('clients.index',array('clients'=>$clients,'dataSales' => $this->dataSales));
     }
 

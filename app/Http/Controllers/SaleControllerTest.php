@@ -253,8 +253,13 @@ class SaleControllerTest extends Controller
     }
     public function delete(Sale $sale)
     {
+        foreach($sale->productSales as $product){
+            $product->delete();
+        }
+        $client=$sale->Client;
+        $client->balance=$client->balance-($sale->total-$sale->paid);
+        $client->save();
         $sale->delete();
-
         return redirect('/sales');
     }
 }

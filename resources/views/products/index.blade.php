@@ -14,7 +14,7 @@
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col">Tipo</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Bodega</th>
                 <th scope="col">Almacén</th>

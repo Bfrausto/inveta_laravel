@@ -11,7 +11,7 @@
                                 <p>Datos del Producto:</p>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Nombre:</span>
-                                    <input type="text " class="form-control  @error('name') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="name" value="{{ old('name') }}" placeholder="Hass">
+                                    <input type="text " class="form-control  @error('name') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="name" value="{{ old('name') }}" placeholder="Negro">
                                     @error('name')
                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                             Ingresar nombre del producto.
@@ -19,8 +19,8 @@
                                     @enderror
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Descripción:</span>
-                                    <input type="text " class="form-control  @error('description') is-invalid @enderror"   name="description" value="{{ old('description') }}" placeholder="Negro">
+                                    <span class="input-group-text input-group-text122" id="inputGroup-sizing-default">Tipo:</span>
+                                    <input type="text " class="form-control  @error('description') is-invalid @enderror"   name="description" value="{{ old('description') }}" placeholder="Hass">
                                     @error('description')
                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                             Ingresar el tipo del producto.
@@ -157,7 +157,7 @@
         show(document.querySelector('#small'),"small");
         show(document.querySelector('#medium'),"medium");
         show(document.querySelector('#big'),"big");
-        
+
     });
     function clear(element,size) {
         if(!document.querySelector(`#${size}`).checked){
